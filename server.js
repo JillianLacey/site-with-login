@@ -8,7 +8,7 @@ const sessionConfig = require("./sessionConfig");//imports session config file. 
 const users = require("./data.js");//brings in the array with user info
 const checkAuth = require("./middlewares/checkAuth");//protects info with middleware 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 //TEMPLATING ENGINE
 app.engine("mustache", mustacheExpress());
@@ -24,14 +24,24 @@ app.use(session(sessionConfig));//calls and passes in session config
 
 //BASE ROUTE
 app.get("/", (req, res)=>{
-    console.log(req.session);//we'll see an object with session id
-    res.render("home");
+    console.log(req.session.user); //we'll see an object with session id
+    if (req.session.user){
+        return res.render("home", {user: req.session.user});
+    } else {
+       return res.render("login");
+    }
 });
 
 //ROUTES
 app.get("/signup", (req, res)=>{
     res.render("signup");
 });
+
+//what I was trying for logout page
+// app.get("/logout", (req, res)=>{
+//     res.render("signup");
+// });
+
 
 app.post("/signup", (req, res)=>{
     //logic that saves into data.js
@@ -73,8 +83,6 @@ app.post("/login", (req, res)=>{
 app.get("/profile", checkAuth, (req, res)=>{
     res.render("profile", {user: req.session.user});
 })
-
-
 
 
 app.listen(port, () =>{
