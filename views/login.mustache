@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <h1>Log in!</h1>
+    <form action="/login" method="POST">
+        {{#errors}}
+            <h4>{{.}}</h4>
+        {{/errors}}
+        <label for="">Username</label><input type="text" name="username" placeholder="Userame" required><br>
+        <label for="">Password</label><input type="password" name="password" placeholder="password1234" required><br>
+        <button type="Submit">Sign Up!</button>
+    </form>
+</body>
+</html>
