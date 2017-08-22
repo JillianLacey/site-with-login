@@ -37,11 +37,6 @@ app.get("/signup", (req, res)=>{
     res.render("signup");
 });
 
-//what I was trying for logout page
-// app.get("/logout", (req, res)=>{
-//     res.render("signup");
-// });
-
 
 app.post("/signup", (req, res)=>{
     //logic that saves into data.js
@@ -84,6 +79,10 @@ app.get("/profile", checkAuth, (req, res)=>{
     res.render("profile", {user: req.session.user});
 })
 
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 app.listen(port, () =>{
     console.log(`running on ${port}!`)
